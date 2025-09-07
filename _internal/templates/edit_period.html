@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Edit Period</h2>
+<form method="post">
+  <div class="mb-3">
+    <label class="form-label">Name</label>
+    <input type="text" name="name" class="form-control" value="{{ period.name }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Start Date</label>
+    <input type="date" name="start_date" class="form-control" value="{{ period.start_date }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Duration Type</label>
+    <select name="duration_type" class="form-select">
+      <option value="weeks" {% if period.duration_type=="weeks" %}selected{% endif %}>Weeks</option>
+      <option value="months" {% if period.duration_type=="months" %}selected{% endif %}>Months</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Duration Value</label>
+    <input type="number" name="duration_value" class="form-control" value="{{ period.duration_value }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Weekend Days</label><br>
+    <input type="checkbox" name="weekend_days" value="Saturday" {% if "Saturday" in period.weekend_days() %}checked{% endif %}> Saturday
+    <input type="checkbox" name="weekend_days" value="Sunday" {% if "Sunday" in period.weekend_days() %}checked{% endif %}> Sunday
+  </div>
+  <button class="btn btn-success">Update</button>
+</form>
+{% endblock %}

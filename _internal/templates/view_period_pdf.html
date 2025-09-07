@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Training Period Summary</title>
+    <style>
+        /* General styling for print */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 8px 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Hide everything except summary when printing */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        /* Summary boxes */
+        .summary-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .summary-box {
+            border: 1px solid #333;
+            padding: 20px;
+            width: 150px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            background-color: #f9f9f9;
+        }
+        .dates {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Training Period Summary</h1>
+    <h2>{{ period.name }}</h2>
+
+    <div class="dates">
+        Start Date: {{ period.start_date }} &nbsp;&nbsp;|&nbsp;&nbsp; End Date: {{ period.end_date }}
+    </div>
+
+    <div class="summary-container">
+        <div class="summary-box">
+            Total Days<br>
+            {{ summary.total_days }}
+        </div>
+        <div class="summary-box">
+            Holidays<br>
+            {{ summary.holidays }}
+        </div>
+        <div class="summary-box">
+            Absent<br>
+            {{ summary.absent }}
+        </div>
+        <div class="summary-box">
+            On Leave<br>
+            {{ summary.on_leave }}
+        </div>
+        <div class="summary-box">
+            Empty<br>
+            {{ summary.empty }}
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Week No</th>
+                <th>Date</th>
+                <th>Day</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for week_no, days in weeks.items() %}
+                {% for day in days %}
+                <tr>
+                    {% if loop.first %}
+                        <td rowspan="{{ days|length }}">{{ week_no }}</td>
+                    {% endif %}
+                    <td>{{ day.date }}</td>
+                    <td>{{ day.day_name }}</td>
+                    <td>{{ day.description }}</td>
+                </tr>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="text-align:center; margin-top:30px;" class="no-print">
+        <button onclick="window.print()">Print Summary</button>
+    </div>
+</body>
+</html>

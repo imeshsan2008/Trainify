@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Create Training Period</h2>
+<form method="post">
+  <div class="mb-3">
+    <label class="form-label">Name</label>
+    <input type="text" name="name" class="form-control" placeholder="My Training Plan">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Start Date</label>
+    <input type="date" name="start_date" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Duration Type</label>
+    <select name="duration_type" class="form-select" required>
+      <option value="weeks">Weeks</option>
+      <option value="months">Months</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Duration Value</label>
+    <input type="number" name="duration_value" class="form-control" min="1" value="6" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Weekend Days</label><br>
+    <input type="checkbox" name="weekend_days" value="Saturday"> Saturday
+    <input type="checkbox" name="weekend_days" value="Sunday"> Sunday
+  </div>
+  <button class="btn btn-success">Create</button>
+</form>
+{% endblock %}
